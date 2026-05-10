@@ -60,6 +60,15 @@ a { text-decoration: none; color: inherit; }
   height: 100%;
 }
 .header-logo img { display: block; }
+.header-logo-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--dark);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  text-decoration: none;
+}
 .header-search-container {
   display: flex;
   align-items: center;
@@ -111,7 +120,7 @@ a { text-decoration: none; color: inherit; }
    HERO BANNER
 ══════════════════════════════════════════ */
 #quote {
-  background-image: url("img/banner.png");
+  background-image: url("https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1800&q=80");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

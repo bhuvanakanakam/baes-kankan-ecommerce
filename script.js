@@ -3,7 +3,10 @@
 //  Cart · Wishlist · Auth · Search · Filter · Sort
 // ═══════════════════════════════════════════════════
 
-const API = 'http://localhost:3001/api';
+// Use backend only when running locally; on Vercel/CDN use fallback products
+const API = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+  ? 'http://localhost:3001/api'
+  : null;
 
 // ── State ─────────────────────────────────────────
 let cart      = JSON.parse(localStorage.getItem('cart')      || '[]');
@@ -107,7 +110,7 @@ function renderCart() {
     const el = document.createElement('div');
     el.className = 'cart-item';
     el.innerHTML = `
-      <img src="${item.image||'img/logo.png'}" onerror="this.src='img/logo.png'" alt="${item.name}">
+      <img src="${item.image||'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&q=80'}" onerror="this.src='https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&q=80'" alt="${item.name}">
       <div class="cart-item-info">
         <h4>${item.name}</h4>
         <p>${fmt(item.price)}</p>
@@ -159,7 +162,7 @@ function buildCard(p) {
   const id    = p.ProductID;
   const name  = p.ProductName;
   const price = p.Price;
-  const img   = p.ImagePath || 'img/logo.png';
+  const img   = p.ImagePath || 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&q=80';
   const stars = '★'.repeat(Math.round(p.Rating || 5)) + '☆'.repeat(5 - Math.round(p.Rating || 5));
   const inWish = wishlist.some(i => i.id === id);
 
@@ -168,7 +171,7 @@ function buildCard(p) {
   card.innerHTML = `
     <a href="product-details.html?id=${id}">
       <div class="card-img-wrap">
-        <img src="${img}" alt="${name}" onerror="this.src='img/logo.png'">
+        <img src="${img}" alt="${name}" onerror="this.src='https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&q=80'">
       </div>
     </a>
     <div class="card-body">
@@ -202,12 +205,16 @@ async function loadProducts(params = {}) {
 
   // Always load the full product list first (needed for client-side filtering)
   if (!allProducts.length) {
-    try {
-      const res  = await fetch(`${API}/products`);
-      const data = await res.json();
-      if (data.success) allProducts = data.products;
-      else throw new Error();
-    } catch {
+    if (API) {
+      try {
+        const res  = await fetch(`${API}/products`);
+        const data = await res.json();
+        if (data.success) allProducts = data.products;
+        else throw new Error();
+      } catch {
+        allProducts = FALLBACK_PRODUCTS;
+      }
+    } else {
       allProducts = FALLBACK_PRODUCTS;
     }
   }
@@ -336,12 +343,16 @@ async function loadProductDetail() {
   if (!id) return;
 
   let p;
-  try {
-    const res  = await fetch(`${API}/products/${id}`);
-    const data = await res.json();
-    if (data.success) p = data.product;
-    else throw new Error();
-  } catch {
+  if (API) {
+    try {
+      const res  = await fetch(`${API}/products/${id}`);
+      const data = await res.json();
+      if (data.success) p = data.product;
+      else throw new Error();
+    } catch {
+      p = FALLBACK_PRODUCTS.find(x => x.ProductID === Number(id));
+    }
+  } else {
     p = FALLBACK_PRODUCTS.find(x => x.ProductID === Number(id));
   }
   if (!p) return;

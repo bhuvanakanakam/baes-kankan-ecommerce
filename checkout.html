@@ -13,7 +13,7 @@
   <section id="header">
     <div class="container">
       <a href="index.html" class="header-logo">
-        <img src="img/logo.png" alt="Bae's Kankan" width="80" height="45">
+        <span class="header-logo-text">Bae's Kankan</span>
       </a>
       <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:600;color:#1a1a1a">
         Secure Checkout
@@ -192,7 +192,7 @@
         const el = document.createElement('div');
         el.className = 'summary-item';
         el.innerHTML = `
-          <img src="${item.image||'img/logo.png'}" onerror="this.src='img/logo.png'" alt="${item.name}">
+          <img src="${item.image||'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=80&q=80'}" onerror="this.src='https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=80&q=80'" alt="${item.name}">
           <div class="summary-item-info">
             <h4>${item.name}</h4>
             <p>Qty: ${item.quantity}</p>
