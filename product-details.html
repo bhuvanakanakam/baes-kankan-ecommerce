@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product — Bae's Kankan</title>
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+</head>
+<body>
+
+  <div id="promo-banner">
+    🎉 FREE SHIPPING on orders above ₹5,000 &nbsp;<span style="color:#f5a623">|</span>&nbsp; Use code <span style="color:#f5a623">KANKAN10</span> for 10% off
+  </div>
+
+  <section id="header">
+    <div class="container">
+      <a href="index.html" class="header-logo">
+        <img src="img/logo.png" alt="Bae's Kankan" width="80" height="45">
+      </a>
+      <div class="header-search-container">
+        <input type="search" id="search-input" class="search-field" placeholder="Search products...">
+        <button class="search-btn"><ion-icon name="search-outline"></ion-icon></button>
+      </div>
+      <div class="header-user-actions">
+        <button class="action-btn" id="user-btn" onclick="handleUserClick()"><i class="fas fa-user"></i></button>
+        <button class="action-btn" onclick="showWishlist()">
+          <i class="fas fa-heart"></i>
+          <span class="count" id="wishlist-count">0</span>
+        </button>
+        <button class="action-btn" onclick="openCart()">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="count" id="cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div class="product-detail-wrapper">
+    <div class="detail-image-col">
+      <img class="main-img" id="detail-image" src="img/logo.png" alt="Product">
+    </div>
+    <div class="detail-info-col">
+      <a href="index.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to all products
+      </a>
+      <p class="detail-category" id="detail-category">Category</p>
+      <h2 class="detail-name" id="detail-name">Loading...</h2>
+      <p class="detail-price" id="detail-price">—</p>
+      <div class="detail-stars" id="detail-stars">★★★★★</div>
+      <p class="detail-desc" id="detail-description">
+        Premium quality, crafted for style and comfort. Part of our exclusive collection — limited stock available. Free shipping on orders above ₹5,000.
+      </p>
+      <div class="detail-actions">
+        <button class="add-to-cart-btn" id="add-to-cart-btn">
+          <i class="fas fa-shopping-bag"></i> &nbsp;Add to Cart
+        </button>
+        <button class="wishlist-btn" id="wishlist-btn-detail" title="Save to Wishlist">
+          <i class="fas fa-heart"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <section id="products" style="padding-top:20px">
+    <h2>You May Also Like</h2>
+    <p class="section-subtitle">More picks from our collection</p>
+    <div class="product-container" id="product-container"></div>
+  </section>
+
+  <section id="footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <div class="footer-logo">Bae's Kankan</div>
+        <p class="footer-tagline">Your one-stop destination for premium fashion.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="login.html">Sign In</a></li>
+          <li><a href="signup.html">Create Account</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Bae's Kankan. All rights reserved.</p>
+    </div>
+  </section>
+
+  <!-- Cart Sidebar -->
+  <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+  <div id="cart-sidebar">
+    <div class="cart-header">
+      <h3>Your Cart (<span id="cart-item-count">0</span>)</h3>
+      <button class="cart-close" onclick="closeCart()">&#x2715;</button>
+    </div>
+    <div class="cart-items" id="cart-items-list"></div>
+    <div class="cart-footer">
+      <div class="cart-total"><span>Total</span><span id="cart-total-amount">₹0</span></div>
+      <button class="checkout-btn" onclick="window.location.href='checkout.html'">Proceed to Checkout</button>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>

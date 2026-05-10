@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bae's Kankan — Premium Fashion</title>
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+</head>
+<body>
+
+  <!-- Promo Banner -->
+  <div id="promo-banner">
+    🎉 FREE SHIPPING on orders above ₹5,000 &nbsp;<span>|</span>&nbsp; Use code <span>KANKAN10</span> for 10% off your first order
+  </div>
+
+  <!-- Header -->
+  <section id="header">
+    <div class="container">
+      <a href="index.html" class="header-logo">
+        <img src="img/logo.png" alt="Bae's Kankan" width="80" height="45">
+      </a>
+      <div class="header-search-container">
+        <input type="search" id="search-input" class="search-field" placeholder="Search products, brands...">
+        <button class="search-btn" onclick="handleSearch()">
+          <ion-icon name="search-outline"></ion-icon>
+        </button>
+      </div>
+      <div class="header-user-actions">
+        <button class="action-btn" id="user-btn" title="Account" onclick="handleUserClick()">
+          <i class="fas fa-user"></i>
+        </button>
+        <button class="action-btn" title="Wishlist" onclick="showWishlist()">
+          <i class="fas fa-heart"></i>
+          <span class="count" id="wishlist-count">0</span>
+        </button>
+        <button class="action-btn" title="Cart" onclick="openCart()">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="count" id="cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hero -->
+  <section id="quote">
+    <div class="quote-content">
+      <p class="tagline">One Stop for Your Premium Looks</p>
+      <h1 class="headline">YEAR END<br><span>SALE</span></h1>
+      <p class="subheadline">Up to 30% off</p>
+      <button id="shop-now-button" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+        Shop Now
+      </button>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section id="categories">
+    <h2>Shop by Category</h2>
+    <p class="section-subtitle">Browse our curated collections</p>
+    <div class="category-container">
+      <div class="category-item" onclick="applyCategory('Shoes')">
+        <div class="circle"><img src="img/category/shoe.png" alt="Shoes"><p>Shoes</p></div>
+        <span class="cat-label">Shoes</span>
+      </div>
+      <div class="category-item" onclick="applyCategory('Bags')">
+        <div class="circle"><img src="img/category/bags.png" alt="Bags"><p>Bags</p></div>
+        <span class="cat-label">Bags</span>
+      </div>
+      <div class="category-item" onclick="applyCategory('Apparel')">
+        <div class="circle"><img src="img/category/apperal.png" alt="Apparel"><p>Apparel</p></div>
+        <span class="cat-label">Apparel</span>
+      </div>
+      <div class="category-item" onclick="applyCategory('Accessories')">
+        <div class="circle"><img src="img/category/access.png" alt="Accessories"><p>Accessories</p></div>
+        <span class="cat-label">Accessories</span>
+      </div>
+      <div class="category-item" onclick="applyCategory('Make Up')">
+        <div class="circle"><img src="img/category/make-up.png" alt="Make Up"><p>Make Up</p></div>
+        <span class="cat-label">Make Up</span>
+      </div>
+      <div class="category-item" onclick="clearFilters()">
+        <div class="circle" style="background:#8f5e2e"><p style="opacity:1;font-size:13px;color:#fff">All</p></div>
+        <span class="cat-label">All</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filter Bar -->
+  <div id="filter-bar">
+    <div class="filter-group">
+      <span class="filter-label">Sort:</span>
+      <select class="filter-select" id="sort-select" onchange="applyFilters()">
+        <option value="">Featured</option>
+        <option value="price_asc">Price: Low to High</option>
+        <option value="price_desc">Price: High to Low</option>
+        <option value="rating">Top Rated</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Price:</span>
+      <input class="filter-input" type="number" id="min-price" placeholder="Min ₹" onchange="applyFilters()">
+      <span style="color:#888;font-size:13px">–</span>
+      <input class="filter-input" type="number" id="max-price" placeholder="Max ₹" onchange="applyFilters()">
+    </div>
+    <div class="filter-group">
+      <button class="filter-btn" onclick="applyFilters()">Apply</button>
+      <button class="filter-clear" onclick="clearFilters()">Clear</button>
+    </div>
+    <span class="results-count" id="results-count"></span>
+  </div>
+
+  <!-- Products -->
+  <section id="products">
+    <h2>Products on Demand</h2>
+    <p class="section-subtitle">Handpicked premium pieces just for you</p>
+    <div class="product-container" id="product-container">
+      <p style="padding:30px;color:#888;grid-column:1/-1;text-align:center">Loading products...</p>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section id="newsletter">
+    <h2>Stay in the Loop</h2>
+    <p>Subscribe for exclusive deals, new arrivals, and style inspiration delivered to your inbox.</p>
+    <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+      <input type="email" id="nl-email" placeholder="Enter your email address" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <section id="footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <div class="footer-logo">Bae's Kankan</div>
+        <p class="footer-tagline">Your one-stop destination for premium fashion and lifestyle products.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Customer Service</h3>
+        <ul>
+          <li>Help & Contact</li>
+          <li>Shipping & Taxes</li>
+          <li>Return Policy</li>
+          <li>Track My Order</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Shop</h3>
+        <ul>
+          <li onclick="applyCategory('Shoes')">Shoes</li>
+          <li onclick="applyCategory('Bags')">Bags</li>
+          <li onclick="applyCategory('Accessories')">Accessories</li>
+          <li onclick="applyCategory('Apparel')">Apparel</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Account</h3>
+        <ul>
+          <li onclick="window.location.href='login.html'">Sign In</li>
+          <li onclick="window.location.href='signup.html'">Create Account</li>
+          <li onclick="showWishlist()">My Wishlist</li>
+          <li onclick="openCart()">My Cart</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Bae's Kankan. All rights reserved.</p>
+      <div class="pay-icons">
+        <span>Visa</span><span>•</span><span>Mastercard</span><span>•</span><span>UPI</span><span>•</span><span>COD</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cart Sidebar -->
+  <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+  <div id="cart-sidebar">
+    <div class="cart-header">
+      <h3>Your Cart (<span id="cart-item-count">0</span>)</h3>
+      <button class="cart-close" onclick="closeCart()">&#x2715;</button>
+    </div>
+    <div class="cart-items" id="cart-items-list">
+      <p style="color:#888;text-align:center;margin-top:50px;font-size:14px">Your cart is empty</p>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cart-total-amount">₹0</span>
+      </div>
+      <button class="checkout-btn" onclick="window.location.href='checkout.html'">
+        Proceed to Checkout
+      </button>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
