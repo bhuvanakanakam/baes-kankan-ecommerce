@@ -120,7 +120,7 @@ a { text-decoration: none; color: inherit; }
    HERO BANNER
 ══════════════════════════════════════════ */
 #quote {
-  background-image: url("https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1800&q=80");
+  background-image: url("img/banner.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
